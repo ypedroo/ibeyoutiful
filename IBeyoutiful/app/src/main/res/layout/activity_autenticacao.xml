@@ -30,7 +30,7 @@
         android:padding="16dp" />
 
     <EditText
-        android:id="@+id/edit:CadastroSenha"
+        android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -52,20 +52,22 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Logar" />
+            android:text="Logar"
+            android:textColor="@android:color/tertiary_text_light" />
 
         <Switch
-            android:id="@+id/switch4"
+            android:id="@+id/switchAcesso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cadastre-se" />
+            android:text="Cadastre-se"
+            android:textColor="@android:color/tertiary_text_light" />
     </LinearLayout>
 
     <Button
@@ -73,5 +75,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Acessar"
-        android:padding="16dp"/>
+        android:padding="16dp"
+        android:theme="@style/botaoPadrao"/>
 </LinearLayout>
