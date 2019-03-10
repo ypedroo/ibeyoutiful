@@ -22,7 +22,7 @@ public class AutenticacaoActivity extends AppCompatActivity {
 
         inicialiazarComponentes();
 
-        
+
     }
 
     private void inicialiazarComponentes(){

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "613258742822",
+    "firebase_url": "https://be-you-tiful-408cb.firebaseio.com",
+    "project_id": "be-you-tiful-408cb",
+    "storage_bucket": "be-you-tiful-408cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613258742822:android:4589b4854f7721f2",
+        "android_client_info": {
+          "package_name": "ibeyoutiful.github.ibeyoutiful"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613258742822-t41rkudcf3bn666r6o3c60cjffu63m1f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ibeyoutiful.github.ibeyoutiful",
+            "certificate_hash": "df961e0778ba9a121738b8f20ec88633b7867010"
+          }
+        },
+        {
+          "client_id": "613258742822-53li8oueua8a5atq6nafg6gaqsbfe2nj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWQ669GBk9AWuk4C01Ejd9ubB_HEoXCLo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613258742822-53li8oueua8a5atq6nafg6gaqsbfe2nj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
