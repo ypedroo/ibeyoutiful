@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#add8e6"
     android:minWidth="250dp"
-    tools:context=".SplashActivity">
+    tools:context=".activity.SplashActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -22,5 +22,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Be_you_tiful_0046" />
+        app:srcCompat="@drawable/logo" />
 </android.support.constraint.ConstraintLayout>

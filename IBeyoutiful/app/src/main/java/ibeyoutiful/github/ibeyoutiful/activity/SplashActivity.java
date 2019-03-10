@@ -1,7 +1,9 @@
-package ibeyoutiful.github.ibeyoutiful;
+package ibeyoutiful.github.ibeyoutiful.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import ibeyoutiful.github.ibeyoutiful.R;
 
 public class SplashActivity extends AppCompatActivity {
 
