@@ -76,7 +76,7 @@ public class AutenticacaoActivity extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
                                         String tipoUsuario = getTipoUsuario();
                                         UsuarioFirebase.atualizarTipoUsuario(tipoUsuario);
-                                        abrirTelaPrincipal();
+                                        abrirTelaPrincipal(tipoUsuario);
 
                                     } else {
                                         String erroExecao="";
@@ -137,8 +137,13 @@ public class AutenticacaoActivity extends AppCompatActivity {
        return tipoUsuario.isChecked() ? "E" : "U";
     }
 
-    private void abrirTelaPrincipal(){
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+    private void abrirTelaPrincipal(String tipoUsuario){
+        if(tipoUsuario.equals("E")){//Empresa
+            startActivity(new Intent(getApplicationContext(), EmpresaActivity.class));
+
+        }else if(tipoUsuario.equals("U")){ //User
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        }
     }
 
     private void inicialiazarComponentes(){
