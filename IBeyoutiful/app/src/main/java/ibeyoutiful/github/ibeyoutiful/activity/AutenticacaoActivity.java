@@ -42,8 +42,9 @@ public class AutenticacaoActivity extends AppCompatActivity {
 
         inicialiazarComponentes();
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        autenticacao.signOut();
 
-        //verificarUsuarioLogado();
+        verificarUsuarioLogado();
 
         tipoAcesso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -109,7 +110,8 @@ public class AutenticacaoActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(AutenticacaoActivity.this, "Logado com Sucesso", Toast.LENGTH_SHORT).show();
-                                        abrirTelaPrincipal();
+                                        String tipoUsuario = task.getResult().getUser().getDisplayName();
+                                        abrirTelaPrincipal(tipoUsuario);
                                     }else{
                                         Toast.makeText(AutenticacaoActivity.this, "Login ou Senha Incorretos", Toast.LENGTH_SHORT).show();
                                     }
@@ -129,7 +131,8 @@ public class AutenticacaoActivity extends AppCompatActivity {
     private void verificarUsuarioLogado(){
         FirebaseUser usuarioAtual=autenticacao.getCurrentUser();
         if (usuarioAtual != null){
-            abrirTelaPrincipal();
+            String tipoUsuario = usuarioAtual.getDisplayName();
+            abrirTelaPrincipal(tipoUsuario);
         }
     }
 
