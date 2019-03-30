@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
 
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
@@ -33,6 +34,7 @@ public class AutenticacaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autenticacao);
         getSupportActionBar().hide();
+
 
         inicialiazarComponentes();
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
@@ -53,9 +55,9 @@ public class AutenticacaoActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(AutenticacaoActivity.this,
-                                                "Usuário cadastrado com sucesso",
+                                                "Usuário Cadastrado com Sucesso",
                                                 Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                        abrirTelaPrincipal();
 
                                     } else {
                                         String erroExecao="";
@@ -80,6 +82,20 @@ public class AutenticacaoActivity extends AppCompatActivity {
                                 }
                             });
                         }else{ //Login
+
+                            autenticacao.signInWithEmailAndPassword(
+                                    email, senha
+                            ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AutenticacaoActivity.this, "Logado com Sucesso", Toast.LENGTH_SHORT).show();
+                                        abrirTelaPrincipal();
+                                    }else{
+                                        Toast.makeText(AutenticacaoActivity.this, "Login ou Senha Incorretos", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }
                     }else{
                         Toast.makeText(AutenticacaoActivity.this, "Preencha a Senha", Toast.LENGTH_SHORT).show();
@@ -89,6 +105,16 @@ public class AutenticacaoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void verificarUsuarioLogado(){
+        FirebaseUser usuarioAtual=autenticacao.getCurrentUser();
+        if (usuarioAtual != null){
+            abrirTelaPrincipal();
+        }
+    }
+    private void abrirTelaPrincipal(){
+        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 
     private void inicialiazarComponentes(){
