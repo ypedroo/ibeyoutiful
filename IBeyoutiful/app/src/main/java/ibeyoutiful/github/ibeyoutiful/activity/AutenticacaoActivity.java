@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -26,7 +27,8 @@ public class AutenticacaoActivity extends AppCompatActivity {
 
     private Button botaoAcessar;
     private EditText campoEmail,campoSenha;
-    private Switch tipoAcesso;
+    private Switch tipoAcesso, tipoUsuario;
+    private LinearLayout linearTipoUsuario;
     private FirebaseAuth autenticacao;
 
     @Override
