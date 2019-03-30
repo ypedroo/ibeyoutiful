@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -41,9 +42,18 @@ public class AutenticacaoActivity extends AppCompatActivity {
         inicialiazarComponentes();
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
-        verificarUsuarioLogado();
+        //verificarUsuarioLogado();
 
-        tipoAcesso
+        tipoAcesso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) { //Empresa
+                    linearTipoUsuario.setVisibility(View.VISIBLE);
+                } else { //Usuario
+                    linearTipoUsuario.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         botaoAcessar.setOnClickListener(new View.OnClickListener() {
             @Override
