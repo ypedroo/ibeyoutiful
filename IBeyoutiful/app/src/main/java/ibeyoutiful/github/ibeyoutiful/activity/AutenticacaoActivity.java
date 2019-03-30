@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
+import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
 
 public class AutenticacaoActivity extends AppCompatActivity {
 
@@ -73,6 +74,8 @@ public class AutenticacaoActivity extends AppCompatActivity {
                                         Toast.makeText(AutenticacaoActivity.this,
                                                 "Usuário Cadastrado com Sucesso",
                                                 Toast.LENGTH_SHORT).show();
+                                        String tipoUsuario = getTipoUsuario();
+                                        UsuarioFirebase.atualizarTipoUsuario(tipoUsuario);
                                         abrirTelaPrincipal();
 
                                     } else {
@@ -129,6 +132,11 @@ public class AutenticacaoActivity extends AppCompatActivity {
             abrirTelaPrincipal();
         }
     }
+
+    private String getTipoUsuario(){
+       return tipoUsuario.isChecked() ? "E" : "U";
+    }
+
     private void abrirTelaPrincipal(){
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
