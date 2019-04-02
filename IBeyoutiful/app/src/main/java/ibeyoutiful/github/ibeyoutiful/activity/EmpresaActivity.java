@@ -1,5 +1,6 @@
 package ibeyoutiful.github.ibeyoutiful.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,9 +48,9 @@ public class EmpresaActivity extends AppCompatActivity {
             case R.id.menuConfiguracoes:
                 abrirConfiguracoes();
                 break;
-            case R.id.menuNovoServico:
-                abrirNovoServico();
-                break;
+            //case R.id.menuNovoServico:
+                //abrirNovoServico();
+                //break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -62,4 +63,12 @@ public class EmpresaActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    private void abrirConfiguracoes() {
+        startActivity(new Intent(EmpresaActivity.this, ConfiguracoesEmpresaActivity.class));
+
+    }
+
+   // private void abrirNovoServico(){
+     //   startActivity(new Intent( NovoServicoEmpresaActivity.this, NovoServicoEmpresaActivity.class));
+    //}
 }
