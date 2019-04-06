@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
@@ -16,12 +17,14 @@ import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
+    private MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
 
+        inicializarComponentes();
         autenticacao= ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         //Configuração Toolbar
@@ -29,43 +32,52 @@ public class HomeActivity extends AppCompatActivity {
         toolbar.setTitle("I Be you tiful");
         setSupportActionBar(toolbar);
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
 
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_empresa, menu);
-            return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_usuario, menu);
+        //Config search button
+        MenuItem item = menu.findItem(R.id.menuPesquisa);
+        searchView.setMenuItem(item);
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menuSair:
+                deslogarUsuario();
+                break;
+            case R.id.menuConfiguracoes:
+                abrirConfiguracoes();
+                break;
+            case R.id.menuPesquisa:
+                break;
         }
+        return super.onOptionsItemSelected(item);
+    }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
+    private void inicializarComponentes(){
+        searchView = findViewById(R.id.materialSearchView);
+    }
 
-            switch (item.getItemId()) {
-                case R.id.menuSair:
-                    deslogarUsuario();
-                    break;
-                case R.id.menuConfiguracoes:
-                    abrirConfiguracoes();
-                    break;
-                case R.id.menuNovoServico:
-                    abrirNovoServico();
-                    break;
-            }
-            return super.onOptionsItemSelected(item);
+
+    private void deslogarUsuario(){
+        try{
+            autenticacao.signOut();
+            finish();
+        }catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+    private void abrirConfiguracoes() {
+        startActivity(new Intent(HomeActivity.this, ConfiguracoesUsuarioActivity.class));
 
-
-        private void deslogarUsuario(){
-            try{
-                autenticacao.signOut();
-                finish();
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        private void abrirConfiguracoes() {
-            startActivity(new Intent(HomeActivity.this, ConfiguracoesEmpresaActivity.class));
-
-        }
     }
 }
