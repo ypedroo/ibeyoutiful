@@ -16,7 +16,9 @@ import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 
 public class EmpresaActivity extends AppCompatActivity {
+
     private FirebaseAuth autenticacao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,7 @@ public class EmpresaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_empresa);
 
         autenticacao= ConfiguracaoFirebase.getFirebaseAutenticacao();
+
         //Configuração Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("IBe you tiful - Profissional");
