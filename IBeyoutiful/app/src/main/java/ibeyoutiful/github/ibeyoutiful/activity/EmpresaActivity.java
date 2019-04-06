@@ -1,7 +1,6 @@
 package ibeyoutiful.github.ibeyoutiful.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +10,6 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import ibeyoutiful.github.ibeyoutiful.NovoServicoEmpresaActivity;
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 
@@ -29,7 +27,7 @@ public class EmpresaActivity extends AppCompatActivity {
 
         //Configuração Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("IBe you tiful - Profissional");
+        toolbar.setTitle("I Be you tiful - Profissional");
         setSupportActionBar(toolbar);
 
     }
