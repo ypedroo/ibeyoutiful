@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import ibeyoutiful.github.ibeyoutiful.NovoServicoEmpresaActivity;
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 
@@ -41,20 +42,20 @@ public class EmpresaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menuSair:
                 deslogarUsuario();
                 break;
             case R.id.menuConfiguracoes:
                 abrirConfiguracoes();
                 break;
-            //case R.id.menuNovoServico:
-                //abrirNovoServico();
-                //break;
+            case R.id.menuNovoServico:
+                abrirNovoServico();
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
 
     private void deslogarUsuario(){
         try{
@@ -68,7 +69,7 @@ public class EmpresaActivity extends AppCompatActivity {
 
     }
 
-   // private void abrirNovoServico(){
-     //   startActivity(new Intent( NovoServicoEmpresaActivity.this, NovoServicoEmpresaActivity.class));
-    //}
+    private void abrirNovoServico(){
+        startActivity(new Intent( EmpresaActivity.this, NovoServicoEmpresaActivity.class));
+    }
 }
