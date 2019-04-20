@@ -30,7 +30,7 @@
             android:src="@drawable/perfil" />
 
         <EditText
-            android:id="@+id/editCadastroEmail"
+            android:id="@+id/editNomeEmpresa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
@@ -41,7 +41,7 @@
             android:padding="16dp" />
 
         <EditText
-            android:id="@+id/editCadastroSenha"
+            android:id="@+id/editTipoServico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
@@ -52,7 +52,7 @@
             android:padding="16dp" />
 
         <EditText
-            android:id="@+id/editCadastroSenha3"
+            android:id="@+id/editValorMedio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
