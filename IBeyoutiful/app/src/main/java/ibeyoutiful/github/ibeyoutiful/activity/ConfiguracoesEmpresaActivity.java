@@ -24,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
+import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 
 public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
@@ -74,7 +75,13 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
             if( !tipo.isEmpty() ){
                 if( !valor.isEmpty() ){
 
-
+                    Empresa empresa = new Empresa();
+                    empresa.setIdUsuario( idUsuarioLogado );
+                    empresa.setNome( nome );
+                    empresa.setTipo( tipo );
+                    empresa.setValor( Double.parseDouble(valor));
+                    empresa.setUrlImagem( urlImagemSelecionada );
+                    empresa.salvar();
 
                 }else{
                     exibirMensagem("Digite um valor médio dos serviços");
