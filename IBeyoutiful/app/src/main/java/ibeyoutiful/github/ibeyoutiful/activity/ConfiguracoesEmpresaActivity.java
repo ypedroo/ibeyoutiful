@@ -29,7 +29,7 @@ import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
     private EditText editNomeEmpresa, editTipoServico, editValorMedio;
-    private ImageView perfilEmpresa;
+    private ImageView imagePerfilEmpresa;
 
     private static final int SELECAO_GALERIA = 200;
     private StorageReference storageReference;
@@ -50,7 +50,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        perfilEmpresa.setOnClickListener(new View.OnClickListener() {
+        imagePerfilEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(
@@ -121,7 +121,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                 }
 
                 if( imagem != null ){
-                    perfilEmpresa.setImageBitmap( imagem );
+                    imagePerfilEmpresa.setImageBitmap( imagem );
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     imagem.compress(Bitmap.CompressFormat.JPEG,70, baos);
@@ -161,6 +161,6 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
         editNomeEmpresa = findViewById(R.id.editNomeEmpresa);
         editTipoServico = findViewById(R.id.editTipoServico);
         editValorMedio = findViewById(R.id.editValorMedio);
-        perfilEmpresa = findViewById(R.id.perfilEmpresa);
+        imagePerfilEmpresa = findViewById(R.id.imagePerfilEmpresa);
     }
 }
