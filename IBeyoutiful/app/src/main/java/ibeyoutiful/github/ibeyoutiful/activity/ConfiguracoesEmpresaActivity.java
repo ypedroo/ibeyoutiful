@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +12,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 import ibeyoutiful.github.ibeyoutiful.R;
+import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
+import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
 
 public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
@@ -20,12 +31,17 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
     private ImageView perfilEmpresa;
 
     private static final int SELECAO_GALERIA = 200;
-
+    private StorageReference storageReference;
+    private String idUsuarioLogado;
+    private String urlImagemSelecionada = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes_empresa);
+        //Configurações Iniciais
         incializarComponentes();
+        storageReference = ConfiguracaoFirebase.getReferenciaStorage();
+        idUsuarioLogado = UsuarioFirebase.getIdUsuario();
 
         //Configuração Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -69,6 +85,32 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
                 if( imagem != null ){
                     perfilEmpresa.setImageBitmap( imagem );
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG,70, baos);
+                    byte[] dadosImagem = baos.toByteArray();
+
+                    StorageReference imagemRef = storageReference
+                            .child("imagens")
+                            .child("empresas")
+                            .child(idUsuarioLogado + "jpeg");
+
+                    UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ConfiguracoesEmpresaActivity.this, "Erro ao fazer o upload da imagem"
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            urlImagemSelecionada  = taskSnapshot.getDownloadUrl().toString();
+                            Toast.makeText(ConfiguracoesEmpresaActivity.this, "Sucesso ao fazer o upload da imagem"
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
             }catch (Exception e) {
