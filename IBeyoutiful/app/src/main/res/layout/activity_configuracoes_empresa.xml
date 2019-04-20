@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/perfil"
+            android:id="@+id/perfilEmpresa"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginTop="8dp"
@@ -27,7 +27,8 @@
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:scaleType="centerCrop"
-            android:src="@drawable/perfil" />
+            android:visibility="visible"
+            tools:src="@drawable/perfil" />
 
         <EditText
             android:id="@+id/editNomeEmpresa"
@@ -66,8 +67,9 @@
             android:id="@+id/buttonAcesso2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="validarDadosEmpresa"
             android:padding="16dp"
-            android:text="Acessar"
+            android:text="Salvar"
             android:theme="@style/botaoPadrao" />
     </LinearLayout>
 
