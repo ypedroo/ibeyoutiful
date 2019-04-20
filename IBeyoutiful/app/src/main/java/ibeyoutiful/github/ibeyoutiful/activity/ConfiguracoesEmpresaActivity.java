@@ -64,6 +64,36 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
     }
 
+    public void validarDadosEmpresa(View view){
+        //Validar campos preenchidos
+        String nome = editNomeEmpresa.getText().toString();
+        String tipo = editTipoServico.getText().toString();
+        String valor = editValorMedio.getText().toString();
+
+        if( !nome.isEmpty() ){
+            if( !tipo.isEmpty() ){
+                if( !valor.isEmpty() ){
+
+
+
+                }else{
+                    exibirMensagem("Digite um valor médio dos serviços");
+                }
+
+            }else{
+                exibirMensagem("Digite os tipos de serviços");
+            }
+
+        }else{
+            exibirMensagem("Digite um nome para a Empresa");
+        }
+
+    }
+
+    private void exibirMensagem(String texto){
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
