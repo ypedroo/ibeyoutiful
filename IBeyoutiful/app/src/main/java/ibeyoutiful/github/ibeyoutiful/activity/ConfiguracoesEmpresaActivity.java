@@ -82,6 +82,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                     empresa.setValor( Double.parseDouble(valor));
                     empresa.setUrlImagem( urlImagemSelecionada );
                     empresa.salvar();
+                    finish();
 
                 }else{
                     exibirMensagem("Digite um valor médio dos serviços");
