@@ -16,10 +16,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.DatabaseMetaData;
 
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
@@ -33,6 +38,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
     private static final int SELECAO_GALERIA = 200;
     private StorageReference storageReference;
+    private DatabaseReference firebaseRef;
     private String idUsuarioLogado;
     private String urlImagemSelecionada = "";
     @Override
@@ -42,6 +48,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
         //Configurações Iniciais
         incializarComponentes();
         storageReference = ConfiguracaoFirebase.getReferenciaStorage();
+        firebaseRef = ConfiguracaoFirebase.getFirebase();
         idUsuarioLogado = UsuarioFirebase.getIdUsuario();
 
         //Configuração Toolbar
@@ -63,6 +70,36 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
             }
         });
 
+        /*Recuperar Dados da Empresa*/
+        recuperarDadosEmpresa();
+
+    }
+
+    private void recuperarDadosEmpresa(){
+
+        DatabaseReference empresaRef = firebaseRef
+                .child("empresas")
+                .child( idUsuarioLogado);
+        empresaRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                if( dataSnapshot.getValue() != null ){
+
+                    Empresa empresa = dataSnapshot.getValue( Empresa.class );
+                    editNomeEmpresa.setText( empresa.getNome());
+                    editTipoServico.setText( empresa.getTipo());
+                    editValorMedio.setText( empresa.getValor().toString() );
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void validarDadosEmpresa(View view){
