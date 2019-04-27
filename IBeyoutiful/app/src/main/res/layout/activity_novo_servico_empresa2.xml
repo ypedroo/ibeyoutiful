@@ -11,5 +11,52 @@
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editProdutoNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="Nome Porduto"
+            android:inputType="text"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/editProdutoDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="Produto Descrição"
+            android:inputType="text"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/editProdutoPreco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="Preço"
+            android:inputType="numberSigned"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/buttonAcesso2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="validarDadosProduto"
+            android:padding="16dp"
+            android:text="Salvar"
+            android:theme="@style/botaoPadrao" />
+    </LinearLayout>
 
 </LinearLayout>
