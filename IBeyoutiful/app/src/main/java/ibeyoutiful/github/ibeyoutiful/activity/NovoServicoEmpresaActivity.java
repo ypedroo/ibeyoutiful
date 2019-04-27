@@ -11,19 +11,23 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import ibeyoutiful.github.ibeyoutiful.R;
+import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
 import ibeyoutiful.github.ibeyoutiful.model.Empresa;
+import ibeyoutiful.github.ibeyoutiful.model.Produto;
 
 public class NovoServicoEmpresaActivity extends AppCompatActivity {
 
     private EditText editProdutoNome, editProdutoDescricao,
             editProdutoPreco;
-    private FirebaseAuth autenticacao;
+    private String idUsuarioLogado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_servico_empresa2);
 
+        incializarComponentes();
+        idUsuarioLogado = UsuarioFirebase.getIdUsuario();
         //Configuração Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Novo Serviço");
@@ -35,13 +39,22 @@ public class NovoServicoEmpresaActivity extends AppCompatActivity {
     public void validarDadosProduto(View view){
         //Validar campos preenchidos
         String nome = editProdutoNome.getText().toString();
-        String descicao = editProdutoDescricao.getText().toString();
+        String descricao = editProdutoDescricao.getText().toString();
         String preco = editProdutoPreco.getText().toString();
 
         if( !nome.isEmpty() ){
-            if( !descicao.isEmpty() ){
+            if( !descricao.isEmpty() ){
                 if( !preco.isEmpty() ){
 
+                    Produto produto = new Produto();
+                    produto.setIdUsuario( idUsuarioLogado );
+                    produto.setNome( nome );
+                    produto.setDescricao( descricao );
+                    produto.setPreco( Double.parseDouble(preco) );
+                    produto.salvar();
+
+                    finish();
+                    exibirMensagem("Serviço Salvo com Sucesso");
 
                 }else{
                     exibirMensagem("Digite um nome para o Serviço");
