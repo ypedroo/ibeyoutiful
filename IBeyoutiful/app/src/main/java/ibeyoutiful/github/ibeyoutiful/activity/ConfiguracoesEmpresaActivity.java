@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.DatabaseMetaData;
@@ -91,6 +92,15 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                     editNomeEmpresa.setText( empresa.getNome());
                     editTipoServico.setText( empresa.getTipo());
                     editValorMedio.setText( empresa.getValor().toString() );
+
+                    urlImagemSelecionada = empresa.getUrlImagem();
+
+                    if( urlImagemSelecionada != "" ){
+
+                        Picasso.get()
+                                .load( urlImagemSelecionada )
+                                .into(imagePerfilEmpresa);
+                    }
 
                 }
             }
