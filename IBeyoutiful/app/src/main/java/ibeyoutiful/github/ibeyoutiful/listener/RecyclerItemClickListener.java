@@ -1,4 +1,4 @@
-package br.com.ifood.cursoandroid.ifoodprojeto.listener;
+package ibeyoutiful.github.ibeyoutiful.listener;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
