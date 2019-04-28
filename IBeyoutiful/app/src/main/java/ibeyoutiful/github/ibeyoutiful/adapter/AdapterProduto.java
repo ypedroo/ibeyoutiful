@@ -14,7 +14,7 @@ import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.model.Produto;
 
 /**
- * Created by Jamilton
+ * Created by Jamilton thx bro
  */
 
 public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHolder>{
@@ -56,8 +56,8 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            nome = itemView.findViewById(R.id.textNomeRefeicao);
-            descricao = itemView.findViewById(R.id.textDescricaoRefeicao);
+            nome = itemView.findViewById(R.id.textNomeServico);
+            descricao = itemView.findViewById(R.id.textDescricaoServico);
             valor = itemView.findViewById(R.id.textPreco);
         }
     }
