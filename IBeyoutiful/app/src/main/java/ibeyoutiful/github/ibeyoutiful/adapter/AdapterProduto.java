@@ -1,4 +1,4 @@
-package br.com.ifood.cursoandroid.ifoodprojeto.adapter;
+package ibeyoutiful.github.ibeyoutiful.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.ifood.cursoandroid.ifoodprojeto.R;
-import br.com.ifood.cursoandroid.ifoodprojeto.model.Produto;
+import ibeyoutiful.github.ibeyoutiful.R;
+import ibeyoutiful.github.ibeyoutiful.model.Produto;
 
 /**
  * Created by Jamilton
