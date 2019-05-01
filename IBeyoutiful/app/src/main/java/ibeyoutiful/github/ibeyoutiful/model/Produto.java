@@ -24,6 +24,10 @@ public class Produto {
         produtoRef.setValue(this);
     }
 
+    public void remover(){
+        
+    }
+
     public String getIdUsuario() {
         return idUsuario;
     }
