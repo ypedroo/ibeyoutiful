@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -75,6 +76,8 @@ public class EmpresaActivity extends AppCompatActivity {
                             public void onLongItemClick(View view, int position) {
                                   Produto produtoSelecionado = produtos.get(position);
                                   produtoSelecionado.remover();
+                                Toast.makeText(EmpresaActivity.this, "Serviço Excluido com sucesso", Toast.LENGTH_SHORT).show();
+
                             }
 
                             @Override

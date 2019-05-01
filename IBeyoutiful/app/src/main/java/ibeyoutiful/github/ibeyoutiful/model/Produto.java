@@ -1,7 +1,10 @@
 package ibeyoutiful.github.ibeyoutiful.model;
 
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 
+import ibeyoutiful.github.ibeyoutiful.activity.EmpresaActivity;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 
 public class Produto {
@@ -10,8 +13,21 @@ public class Produto {
     private String nome;
     private String descricao;
     private Double preco;
+    private String idProduto;
+
+    public String getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(String idProduto) {
+        this.idProduto = idProduto;
+    }
 
     public Produto() {
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference produtoRef = firebaseRef
+                .child("produtos");
+        setIdProduto( produtoRef.push().getKey() );
     }
 
     public void salvar(){
@@ -20,12 +36,18 @@ public class Produto {
         DatabaseReference produtoRef = firebaseRef
                 .child("produtos")
                 .child( getIdUsuario() )
-                .push();
+                .child( getIdProduto() );
         produtoRef.setValue(this);
     }
 
     public void remover(){
-        
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference produtoRef = firebaseRef
+                .child("produtos")
+                .child( getIdUsuario() )
+                .child( getIdProduto() );
+        produtoRef.removeValue();
+
     }
 
     public String getIdUsuario() {

@@ -99,7 +99,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
                         Picasso.get()
                                 .load( urlImagemSelecionada )
-                                .into(imagePerfilEmpresa);
+                                .into( imagePerfilEmpresa );
                     }
 
                 }
