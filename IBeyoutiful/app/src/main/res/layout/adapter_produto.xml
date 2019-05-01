@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dp"
         android:text="Moicano"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="16sp"
@@ -19,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dp"
         android:text="Corte de cabelo raspando o meio e deixando uma faixa de cabelo na cabeça"
         android:textSize="14sp" />
 
@@ -26,6 +28,7 @@
         android:id="@+id/textPreco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:text="R$ 199.90"
         android:textColor="@android:color/holo_green_light"
         android:textSize="18sp"
