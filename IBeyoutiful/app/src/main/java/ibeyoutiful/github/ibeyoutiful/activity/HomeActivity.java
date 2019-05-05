@@ -3,6 +3,7 @@ package ibeyoutiful.github.ibeyoutiful.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.adapter.AdapterEmpresa;
+import ibeyoutiful.github.ibeyoutiful.adapter.AdapterProduto;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 
@@ -37,11 +39,21 @@ public class HomeActivity extends AppCompatActivity {
 
         inicializarComponentes();
         autenticacao= ConfiguracaoFirebase.getFirebaseAutenticacao();
+        firebaseRef = ConfiguracaoFirebase.getFirebase();
 
         //Configuração Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("I Be you tiful");
+        toolbar.setTitle("Beyoutiful");
         setSupportActionBar(toolbar);
+
+        //Configuraçao recyclerView
+        recyclerEmpresa.setLayoutManager( new LinearLayoutManager(this));
+        recyclerEmpresa.setHasFixedSize(true);
+        adapterEmpresa = new AdapterEmpresa( empresas );
+        recyclerEmpresa.setAdapter( adapterEmpresa );
+
+        //Recuperar Produtos para empresa
+        recuperarEmpresas();
 
 
     }
@@ -76,6 +88,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void inicializarComponentes(){
         searchView = findViewById(R.id.materialSearchView);
+        recyclerEmpresa = findViewById(R.id.recyclerServicos);
     }
 
 
