@@ -11,7 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import ibeyoutiful.github.ibeyoutiful.adapter.AdapterEmpresa;
 import ibeyoutiful.github.ibeyoutiful.adapter.AdapterProduto;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 import ibeyoutiful.github.ibeyoutiful.model.Empresa;
+import ibeyoutiful.github.ibeyoutiful.model.Produto;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -57,6 +61,28 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
+    private void recuperarEmpresas(){
+        DatabaseReference empresaRef = firebaseRef.child("empresas");
+        empresaRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                empresas.clear();
+
+                for ( DataSnapshot ds: dataSnapshot.getChildren()) {
+                    empresas.add( ds.getValue(Empresa.class));
+                }
+
+                adapterEmpresa.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
