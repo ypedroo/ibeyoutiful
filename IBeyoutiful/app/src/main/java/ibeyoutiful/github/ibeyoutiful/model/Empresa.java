@@ -2,9 +2,11 @@ package ibeyoutiful.github.ibeyoutiful.model;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.io.Serializable;
+
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 
-public class Empresa {
+public class Empresa implements Serializable {
 
     private String idUsuario;
     private String urlImagem;
