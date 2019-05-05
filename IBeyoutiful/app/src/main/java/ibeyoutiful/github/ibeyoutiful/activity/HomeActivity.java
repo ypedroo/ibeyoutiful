@@ -3,21 +3,32 @@ package ibeyoutiful.github.ibeyoutiful.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ibeyoutiful.github.ibeyoutiful.R;
+import ibeyoutiful.github.ibeyoutiful.adapter.AdapterEmpresa;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
+import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth autenticacao;
     private MaterialSearchView searchView;
+    private RecyclerView recyclerEmpresa;
+    private List<Empresa> empresas = new ArrayList<>();
+    private DatabaseReference firebaseRef;
+    private AdapterEmpresa adapterEmpresa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

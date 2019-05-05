@@ -13,8 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import br.com.ifood.cursoandroid.ifoodprojeto.R;
-import br.com.ifood.cursoandroid.ifoodprojeto.model.Empresa;
+import ibeyoutiful.github.ibeyoutiful.R;
+import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 
 /**
  * Created by Jamilton
@@ -39,9 +39,8 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
         Empresa empresa = empresas.get(i);
         holder.nomeEmpresa.setText(empresa.getNome());
-        holder.categoria.setText(empresa.getCategoria() + " - ");
-        holder.tempo.setText(empresa.getTempo() + " Min");
-        holder.entrega.setText("R$ " + empresa.getPrecoEntrega().toString());
+        holder.categoria.setText(empresa.getTipo() + " - ");
+        holder.entrega.setText("R$ " + empresa.getValor().toString());
 
         //Carregar imagem
         String urlImagem = empresa.getUrlImagem();
