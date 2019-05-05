@@ -44,7 +44,9 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
 
         //Carregar imagem
         String urlImagem = empresa.getUrlImagem();
-        Picasso.get().load( urlImagem ).into( holder.imagemEmpresa );
+        if (urlImagem != ""){
+            Picasso.get().load( urlImagem ).into( holder.imagemEmpresa );
+        }
 
     }
 
