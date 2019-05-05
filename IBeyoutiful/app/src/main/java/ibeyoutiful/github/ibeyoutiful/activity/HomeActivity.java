@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -59,7 +60,48 @@ public class HomeActivity extends AppCompatActivity {
         //Recuperar Produtos para empresa
         recuperarEmpresas();
 
+        //Configuração do  search view
+        searchView.setHint("Pesquisar serviços");
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                pesquisarEmpresas( newText );
+                return true;
+            }
+        });
+
+
+    }
+
+    private void pesquisarEmpresas(String pesquisa){
+        DatabaseReference empresaRef = firebaseRef
+                .child("empresas");
+        Query query = empresaRef.orderByChild("nome")
+                .startAt(pesquisa)
+                .endAt(pesquisa + "\uf8ff");
+
+       query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                empresas.clear();
+
+                for ( DataSnapshot ds: dataSnapshot.getChildren()) {
+                    empresas.add( ds.getValue(Empresa.class));
+                }
+
+                adapterEmpresa.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void recuperarEmpresas(){
