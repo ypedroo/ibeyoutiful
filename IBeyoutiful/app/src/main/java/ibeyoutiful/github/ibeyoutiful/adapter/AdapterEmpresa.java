@@ -58,7 +58,6 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
         ImageView imagemEmpresa;
         TextView nomeEmpresa;
         TextView categoria;
-        TextView tempo;
         TextView entrega;
 
         public MyViewHolder(View itemView) {

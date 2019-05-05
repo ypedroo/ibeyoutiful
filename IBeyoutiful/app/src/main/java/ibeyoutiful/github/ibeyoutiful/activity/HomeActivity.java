@@ -60,6 +60,10 @@ public class HomeActivity extends AppCompatActivity {
         //Recuperar Produtos para empresa
         recuperarEmpresas();
 
+        //Recuperar Produtos para empresa
+        recuperarEmpresas();	        recuperarEmpresas();
+
+
         //Configuração do  search view
         searchView.setHint("Pesquisar serviços");
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
@@ -85,10 +89,11 @@ public class HomeActivity extends AppCompatActivity {
                 .startAt(pesquisa)
                 .endAt(pesquisa + "\uf8ff");
 
-       query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 empresas.clear();
+
 
                 for ( DataSnapshot ds: dataSnapshot.getChildren()) {
                     empresas.add( ds.getValue(Empresa.class));
@@ -102,7 +107,9 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
 
     private void recuperarEmpresas(){
         DatabaseReference empresaRef = firebaseRef.child("empresas");
