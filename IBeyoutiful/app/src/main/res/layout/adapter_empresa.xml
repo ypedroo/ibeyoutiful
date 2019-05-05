@@ -46,13 +46,6 @@
                     android:text="Salão de Beleza" />
 
                 <TextView
-                    android:id="@+id/textTempoEmpresa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="- 25-30 min" />
-
-                <TextView
                     android:id="@+id/textEntregaEmpresa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

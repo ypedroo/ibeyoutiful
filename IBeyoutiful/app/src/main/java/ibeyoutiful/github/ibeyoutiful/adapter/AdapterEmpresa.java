@@ -66,7 +66,6 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
 
             nomeEmpresa = itemView.findViewById(R.id.textNomeEmpresa);
             categoria = itemView.findViewById(R.id.textCategoriaEmpresa);
-            tempo = itemView.findViewById(R.id.textTempoEmpresa);
             entrega = itemView.findViewById(R.id.textEntregaEmpresa);
             imagemEmpresa = itemView.findViewById(R.id.imageEmpresa);
         }
