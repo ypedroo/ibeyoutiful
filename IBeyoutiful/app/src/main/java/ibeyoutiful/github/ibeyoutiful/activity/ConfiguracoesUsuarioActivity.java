@@ -1,7 +1,11 @@
 package ibeyoutiful.github.ibeyoutiful.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +14,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
 
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
@@ -24,6 +38,7 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
     private String idUsuario;
     private DatabaseReference firebaseRef;
     private ImageView imagePerfilUsuario;
+    private StorageReference storageReference;
     private static final int SELECAO_GALERIA = 200;
     private String urlImagemSelecionada = "";
 
@@ -36,6 +51,7 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
         inicializarComponentes();
         idUsuario = UsuarioFirebase.getIdUsuario();
         firebaseRef = ConfiguracaoFirebase.getFirebase();
+        storageReference = ConfiguracaoFirebase.getReferenciaStorage();
 
         //Configuração Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -53,6 +69,44 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
                 if( i.resolveActivity(getPackageManager()) != null ){
                     startActivityForResult(i, SELECAO_GALERIA);
                 }
+            }
+        });
+
+        recuperarDadosUsuario();
+    }
+
+    private void recuperarDadosUsuario(){
+
+        DatabaseReference empresaRef = firebaseRef
+                .child("usuarios")
+                .child( idUsuario);
+        empresaRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                if( dataSnapshot.getValue() != null ){
+
+                    Usuario usuario = dataSnapshot.getValue( Usuario.class );
+                    editUsuarioNome.setText( usuario.getNomeUsuario());
+                    editUsuarioEndereco.setText( usuario.getEnderecoUsuario());
+
+                    urlImagemSelecionada = usuario.getUrlImagem();
+
+                    if( urlImagemSelecionada != "" ){
+                        Picasso.get()
+                                .load( urlImagemSelecionada )
+                                .into( imagePerfilUsuario );
+                    }else{
+                        imagePerfilUsuario.setImageResource(R.drawable.perfil);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
@@ -83,6 +137,62 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
 
     private void exibirMensagem(String texto){
         Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if( resultCode == RESULT_OK ) {
+            Bitmap imagem = null;
+            try{
+
+                switch (requestCode){
+                    case SELECAO_GALERIA:
+                        Uri localImage = data.getData();
+                        imagem = MediaStore.Images
+                                .Media
+                                .getBitmap(
+                                        getContentResolver(),
+                                        localImage
+                                );
+                        break;
+                }
+
+                if( imagem != null ){
+                    imagePerfilUsuario.setImageBitmap( imagem );
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG,70, baos);
+                    byte[] dadosImagem = baos.toByteArray();
+
+                    StorageReference imagemRef = storageReference
+                            .child("imagens")
+                            .child("empresas")
+                            .child(idUsuario + "jpeg");
+
+                    UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ConfiguracoesUsuarioActivity.this, "Erro ao fazer o upload da imagem"
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            urlImagemSelecionada  = taskSnapshot.getDownloadUrl().toString();
+                            Toast.makeText(ConfiguracoesUsuarioActivity.this, "Sucesso ao fazer o upload da imagem"
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+            }catch (Exception e) {
+                e.printStackTrace();
+
+            }
+        }
     }
 
     private void inicializarComponentes(){
