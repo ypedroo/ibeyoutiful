@@ -16,6 +16,7 @@ import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
 import ibeyoutiful.github.ibeyoutiful.model.Empresa;
+import ibeyoutiful.github.ibeyoutiful.model.Usuario;
 
 public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
 
@@ -62,13 +63,12 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
 
         if( !nome.isEmpty() ){
             if(!endereco.isEmpty()){
-                Usuario empresa = new Empresa();
-                empresa.setIdUsuario( idUsuarioLogado );
-                empresa.setNome( nome );
-                empresa.setTipo( tipo );
-                empresa.setValor( Double.parseDouble(valor));
-                empresa.setUrlImagem( urlImagemSelecionada );
-                empresa.salvar();
+                Usuario usuario = new Usuario() ;
+                usuario.setIdUsuario( idUsuario );
+                usuario.setNomeUsuario( nome );
+                usuario.setEnderecoUsuario( endereco );
+                usuario.setUrlImagem( urlImagemSelecionada );
+                usuario.salvar();
                 finish();
 
             }else{

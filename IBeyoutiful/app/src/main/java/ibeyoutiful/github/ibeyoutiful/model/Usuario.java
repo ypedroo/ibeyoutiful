@@ -1,5 +1,9 @@
 package ibeyoutiful.github.ibeyoutiful.model;
 
+import com.google.firebase.database.DatabaseReference;
+
+import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
+
 public class Usuario {
 
     private String idUsuario;
@@ -7,11 +11,15 @@ public class Usuario {
     private String nomeUsuario;
     private String enderecoUsuario;
 
-    public Usuario(String idUsuario, String urlImagem, String nomeUsuario, String enderecoUsuario) {
-        this.idUsuario = idUsuario;
-        this.urlImagem = urlImagem;
-        this.nomeUsuario = nomeUsuario;
-        this.enderecoUsuario = enderecoUsuario;
+    public void salvar(){
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference usuarioRef = firebaseRef.child("usuarios")
+                .child( getIdUsuario() );
+        usuarioRef.setValue(this);
+    }
+
+    public Usuario() {
+
     }
 
     public String getIdUsuario() {
