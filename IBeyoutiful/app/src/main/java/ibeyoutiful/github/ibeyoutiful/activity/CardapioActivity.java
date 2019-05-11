@@ -112,18 +112,24 @@ public class CardapioActivity extends AppCompatActivity {
         recuperarDadosUsuario();
     }
 
-    private void confirmarQuantidade(int posicao) {
+    private void confirmarQuantidade(final int posicao) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Quantidade");
         builder.setMessage("Digite a Quantidade");
 
-        EditText editQuantidade = new EditText(this);
+        final EditText editQuantidade = new EditText(this);
         editQuantidade.setText("1");
+
+        builder.setView( editQuantidade );
 
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String quantidade = editQuantidade.getText().toString();
+
+                Produto produtoSelecionado = produtos.get(posicao);
+
 
             }
         });
