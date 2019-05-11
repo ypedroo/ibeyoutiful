@@ -1,6 +1,7 @@
 package ibeyoutiful.github.ibeyoutiful.activity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.adapter.AdapterProduto;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
+import ibeyoutiful.github.ibeyoutiful.listener.RecyclerItemClickListener;
 import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 import ibeyoutiful.github.ibeyoutiful.model.Produto;
 import ibeyoutiful.github.ibeyoutiful.model.Usuario;
@@ -79,9 +83,55 @@ public class CardapioActivity extends AppCompatActivity {
         adapterProduto = new AdapterProduto( produtos, this);
         recyclerProdutosCardapio.setAdapter( adapterProduto );
 
+        //Configurar evento de click
+        recyclerProdutosCardapio.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        this,
+                        recyclerProdutosCardapio,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                confirmarQuantidade(position);
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+                        })
+        );
+
         //Recuperar Produtos para empresa
         recuperarProdutos();
         recuperarDadosUsuario();
+    }
+
+    private void confirmarQuantidade(int posicao) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Quantidade");
+        builder.setMessage("Digite a Quantidade");
+
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void recuperarDadosUsuario() {
