@@ -29,7 +29,6 @@ import java.io.ByteArrayOutputStream;
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
-import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 import ibeyoutiful.github.ibeyoutiful.model.Usuario;
 
 public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
@@ -38,8 +37,8 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
     private String idUsuario;
     private DatabaseReference firebaseRef;
     private ImageView imagePerfilUsuario;
-    private StorageReference storageReference;
     private static final int SELECAO_GALERIA = 200;
+    private StorageReference storageReference;
     private String urlImagemSelecionada = "";
 
     @Override
@@ -77,10 +76,10 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
 
     private void recuperarDadosUsuario(){
 
-        DatabaseReference empresaRef = firebaseRef
+        DatabaseReference usuarioRef = firebaseRef
                 .child("usuarios")
                 .child( idUsuario);
-        empresaRef.addValueEventListener(new ValueEventListener() {
+        usuarioRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -93,14 +92,11 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
 
                     urlImagemSelecionada = usuario.getUrlImagem();
 
-                    if( urlImagemSelecionada != "" ){
+                    if( "" != "" ){
                         Picasso.get()
                                 .load( urlImagemSelecionada )
                                 .into( imagePerfilUsuario );
-                    }else{
-                        imagePerfilUsuario.setImageResource(R.drawable.perfil);
                     }
-
                 }
             }
 
@@ -142,58 +138,61 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if( resultCode == RESULT_OK ) {
-            Bitmap imagem = null;
-            try{
+            super.onActivityResult(requestCode, resultCode, data);
 
-                switch (requestCode){
-                    case SELECAO_GALERIA:
-                        Uri localImage = data.getData();
-                        imagem = MediaStore.Images
-                                .Media
-                                .getBitmap(
-                                        getContentResolver(),
-                                        localImage
-                                );
-                        break;
+            if( resultCode == RESULT_OK ) {
+                Bitmap imagem = null;
+                try{
+
+                    switch (requestCode){
+                        case SELECAO_GALERIA:
+                            Uri localImage = data.getData();
+                            imagem = MediaStore.Images
+                                    .Media
+                                    .getBitmap(
+                                            getContentResolver(),
+                                            localImage
+                                    );
+                            break;
+                    }
+
+                    if( imagem != null ){
+                        imagePerfilUsuario.setImageBitmap( imagem );
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        imagem.compress(Bitmap.CompressFormat.JPEG,70, baos);
+                        byte[] dadosImagem = baos.toByteArray();
+
+                        StorageReference imagemRef = storageReference
+                                .child("imagens")
+                                .child("usuarios")
+                                .child(idUsuario + "jpeg");
+
+                        UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ConfiguracoesUsuarioActivity.this, "Erro ao fazer o upload da imagem"
+                                        , Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                urlImagemSelecionada  = taskSnapshot.getDownloadUrl().toString();
+                                Toast.makeText(ConfiguracoesUsuarioActivity.this, "Sucesso ao fazer o upload da imagem"
+                                        , Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                }catch (Exception e) {
+                    e.printStackTrace();
+
                 }
-
-                if( imagem != null ){
-                    imagePerfilUsuario.setImageBitmap( imagem );
-
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    imagem.compress(Bitmap.CompressFormat.JPEG,70, baos);
-                    byte[] dadosImagem = baos.toByteArray();
-
-                    StorageReference imagemRef = storageReference
-                            .child("imagens")
-                            .child("empresas")
-                            .child(idUsuario + "jpeg");
-
-                    UploadTask uploadTask = imagemRef.putBytes( dadosImagem );
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConfiguracoesUsuarioActivity.this, "Erro ao fazer o upload da imagem"
-                                    , Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            urlImagemSelecionada  = taskSnapshot.getDownloadUrl().toString();
-                            Toast.makeText(ConfiguracoesUsuarioActivity.this, "Sucesso ao fazer o upload da imagem"
-                                    , Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-            }catch (Exception e) {
-                e.printStackTrace();
-
             }
         }
-    }
+
 
     private void inicializarComponentes(){
         editUsuarioNome = findViewById(R.id.editNomeUsuario);
