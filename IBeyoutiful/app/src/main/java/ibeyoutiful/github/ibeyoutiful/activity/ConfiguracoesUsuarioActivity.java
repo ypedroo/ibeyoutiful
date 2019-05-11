@@ -92,7 +92,7 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
 
                     urlImagemSelecionada = usuario.getUrlImagem();
 
-                    if( "" != "" ){
+                    if( !urlImagemSelecionada.equals("") ){
                         Picasso.get()
                                 .load( urlImagemSelecionada )
                                 .into( imagePerfilUsuario );
