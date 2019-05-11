@@ -1,5 +1,7 @@
 package ibeyoutiful.github.ibeyoutiful.model;
 
+import android.content.Intent;
+
 import com.google.firebase.database.DatabaseReference;
 
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
@@ -10,6 +12,7 @@ public class Usuario {
     private String urlImagem;
     private String nomeUsuario;
     private String enderecoUsuario;
+    private Integer telefoneUsuario;
 
     public void salvar(){
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
@@ -52,5 +55,13 @@ public class Usuario {
 
     public void setEnderecoUsuario(String enderecoUsuario) {
         this.enderecoUsuario = enderecoUsuario;
+    }
+
+    public Integer getTelefoneUsuario() {
+        return telefoneUsuario;
+    }
+
+    public void setTelefoneUsuario(Integer telefoneUsuario) {
+        this.telefoneUsuario = telefoneUsuario;
     }
 }

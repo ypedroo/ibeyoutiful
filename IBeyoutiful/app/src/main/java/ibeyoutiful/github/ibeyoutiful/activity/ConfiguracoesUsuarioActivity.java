@@ -33,13 +33,14 @@ import ibeyoutiful.github.ibeyoutiful.model.Usuario;
 
 public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
 
-    private EditText editUsuarioNome, editUsuarioEndereco;
+    private EditText editUsuarioNome, editUsuarioEndereco, editTelefone;
     private String idUsuario;
     private DatabaseReference firebaseRef;
     private ImageView imagePerfilUsuario;
     private static final int SELECAO_GALERIA = 200;
     private StorageReference storageReference;
     private String urlImagemSelecionada = "";
+    private Integer telefone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,12 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
                     editUsuarioNome.setText( usuario.getNomeUsuario());
                     editUsuarioEndereco.setText( usuario.getEnderecoUsuario());
 
+                    telefone = usuario.getTelefoneUsuario();
+
+                    if(telefone != null) {
+                        editTelefone.setText( usuario.getTelefoneUsuario().toString());
+                    }
+
                     urlImagemSelecionada = usuario.getUrlImagem();
 
                     if( !urlImagemSelecionada.equals("") ){
@@ -110,23 +117,29 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
     public void validarDadosUsuario(View view){
         String nome = editUsuarioNome.getText().toString();
         String endereco = editUsuarioEndereco.getText().toString();
+        String telefone = editTelefone.getText().toString();
 
-        if( !nome.isEmpty() ){
-            if(!endereco.isEmpty()){
-                Usuario usuario = new Usuario() ;
-                usuario.setIdUsuario( idUsuario );
-                usuario.setNomeUsuario( nome );
-                usuario.setEnderecoUsuario( endereco );
-                usuario.setUrlImagem( urlImagemSelecionada );
-                usuario.salvar();
-                finish();
+        if( !telefone.isEmpty()){
+            if( !nome.isEmpty() ){
+                if(!endereco.isEmpty()){
+                    Usuario usuario = new Usuario() ;
+                    usuario.setIdUsuario( idUsuario );
+                    usuario.setNomeUsuario( nome );
+                    usuario.setEnderecoUsuario( endereco );
+                    usuario.setTelefoneUsuario( Integer.parseInt(telefone) );
+                    usuario.setUrlImagem( urlImagemSelecionada );
+                    usuario.salvar();
+                    finish();
+
+                }else{
+                    exibirMensagem("Digite um endereço válido");
+                }
 
             }else{
-                exibirMensagem("Digite um endereço válido");
+                exibirMensagem("Digite um nome válido ");
             }
-
         }else{
-            exibirMensagem("Digite um nome válido ");
+            exibirMensagem("Digite um telefone válido ");
         }
 
     }
@@ -197,6 +210,7 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
     private void inicializarComponentes(){
         editUsuarioNome = findViewById(R.id.editNomeUsuario);
         editUsuarioEndereco = findViewById(R.id.editUsuarioEndereco);
+        editTelefone = findViewById(R.id.editUsuarioTelefone);
         imagePerfilUsuario = findViewById(R.id.imagePerfilUsuario);
     }
 }
