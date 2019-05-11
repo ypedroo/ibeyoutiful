@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -99,9 +102,9 @@ public class CardapioActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if( dataSnapshot.getValue() != null ){
                     usuario = dataSnapshot.getValue(Usuario.class);
-                    //temp
-                    dialog.cancel();
                 }
+                recuperarPedido();
+
             }
 
             @Override
@@ -110,6 +113,11 @@ public class CardapioActivity extends AppCompatActivity {
             }
         });
 }
+
+    private void recuperarPedido() {
+
+        dialog.dismiss();
+    }
 
     private void recuperarProdutos() {
 
@@ -134,6 +142,25 @@ public class CardapioActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_cardapio, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menuPedido:
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void inicializarComponentes() {
