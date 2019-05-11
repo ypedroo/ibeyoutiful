@@ -143,10 +143,12 @@ public class CardapioActivity extends AppCompatActivity {
 
                 if( pedidoRecuperado == null){
                     pedidoRecuperado = new Pedido( idUsuarioLogado, idEmpresa);
-
                 }
 
-
+                pedidoRecuperado.setNome( usuario.getNomeUsuario() );
+                pedidoRecuperado.setEndereco( usuario.getEnderecoUsuario() );
+                pedidoRecuperado.setItens( itensCarrinho );
+                pedidoRecuperado.salvar();
             }
         });
 
