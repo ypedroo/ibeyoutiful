@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -116,6 +117,9 @@ public class CardapioActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Quantidade");
         builder.setMessage("Digite a Quantidade");
+
+        EditText editQuantidade = new EditText(this);
+        editQuantidade.setText("1");
 
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
