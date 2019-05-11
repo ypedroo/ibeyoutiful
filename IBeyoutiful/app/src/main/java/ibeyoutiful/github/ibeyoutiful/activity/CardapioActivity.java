@@ -72,7 +72,14 @@ public class CardapioActivity extends AppCompatActivity {
 
         //Recuperar Produtos para empresa
         recuperarProdutos();
+        recuperarDadosUsuario();
     }
+
+    private void recuperarDadosUsuario() {
+
+
+    }
+
     private void recuperarProdutos() {
 
         final DatabaseReference produtosRef = firebaseRef
