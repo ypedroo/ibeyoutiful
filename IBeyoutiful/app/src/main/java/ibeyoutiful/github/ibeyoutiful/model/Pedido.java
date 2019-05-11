@@ -1,12 +1,16 @@
 package ibeyoutiful.github.ibeyoutiful.model;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.List;
+
+import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 
 public class Pedido {
 
     private String idUsuario;
     private String idEmpresa;
-    private String idRequisicao;
+    private String idPedido;
     private String nome;
     private String endereco;
     private Integer telefone;
@@ -17,6 +21,27 @@ public class Pedido {
     private String observacao;
 
     public Pedido() {
+    }
+
+    public Pedido( String idUsu, String idEmp) {
+
+        setIdUsuario( idUsu);
+        setIdEmpresa( idEmp);
+
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference pedidoRef = firebaseRef
+                .child("pedidos_usuario")
+                .child( idUsu )
+                .child( idEmp );
+        setIdPedido( pedidoRef.push().getKey() );
+    }
+
+    public String getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
     }
 
     public String getIdUsuario() {
@@ -33,14 +58,6 @@ public class Pedido {
 
     public void setIdEmpresa(String idEmpresa) {
         this.idEmpresa = idEmpresa;
-    }
-
-    public String getIdRequisicao() {
-        return idRequisicao;
-    }
-
-    public void setIdRequisicao(String idRequisicao) {
-        this.idRequisicao = idRequisicao;
     }
 
     public String getNome() {

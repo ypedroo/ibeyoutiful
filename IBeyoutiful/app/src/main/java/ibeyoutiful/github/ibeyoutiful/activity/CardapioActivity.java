@@ -33,6 +33,7 @@ import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
 import ibeyoutiful.github.ibeyoutiful.listener.RecyclerItemClickListener;
 import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 import ibeyoutiful.github.ibeyoutiful.model.ItemPedido;
+import ibeyoutiful.github.ibeyoutiful.model.Pedido;
 import ibeyoutiful.github.ibeyoutiful.model.Produto;
 import ibeyoutiful.github.ibeyoutiful.model.Usuario;
 
@@ -50,6 +51,7 @@ public class CardapioActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private String idUsuarioLogado;
     private Usuario usuario;
+    private Pedido pedidoRecuperado;
 
 
     @Override
@@ -138,6 +140,11 @@ public class CardapioActivity extends AppCompatActivity {
                 itemPedido.setQuantidade( Integer.parseInt(quantidade) );
 
                 itensCarrinho.add( itemPedido );
+
+                if( pedidoRecuperado == null){
+                    pedidoRecuperado = new Pedido( idUsuarioLogado, idEmpresa);
+
+                }
 
 
             }
