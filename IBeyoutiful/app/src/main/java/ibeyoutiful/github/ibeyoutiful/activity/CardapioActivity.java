@@ -32,6 +32,7 @@ import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
 import ibeyoutiful.github.ibeyoutiful.listener.RecyclerItemClickListener;
 import ibeyoutiful.github.ibeyoutiful.model.Empresa;
+import ibeyoutiful.github.ibeyoutiful.model.ItemPedido;
 import ibeyoutiful.github.ibeyoutiful.model.Produto;
 import ibeyoutiful.github.ibeyoutiful.model.Usuario;
 
@@ -43,6 +44,7 @@ public class CardapioActivity extends AppCompatActivity {
     private Empresa empresaSelecionada;
     private AdapterProduto adapterProduto;
     private List<Produto> produtos = new ArrayList<>();
+    private List<ItemPedido> itensCarrinho = new ArrayList<>();
     private DatabaseReference firebaseRef;
     private String idEmpresa;
     private AlertDialog dialog;
@@ -129,6 +131,13 @@ public class CardapioActivity extends AppCompatActivity {
                 String quantidade = editQuantidade.getText().toString();
 
                 Produto produtoSelecionado = produtos.get(posicao);
+                ItemPedido itemPedido = new ItemPedido();
+                itemPedido.setIdProduto( produtoSelecionado.getIdProduto() );
+                itemPedido.setNomePorduto( produtoSelecionado.getNome() );
+                itemPedido.setPreco( produtoSelecionado.getPreco() );
+                itemPedido.setQuantidade( Integer.parseInt(quantidade) );
+
+                itensCarrinho.add( itemPedido );
 
 
             }
