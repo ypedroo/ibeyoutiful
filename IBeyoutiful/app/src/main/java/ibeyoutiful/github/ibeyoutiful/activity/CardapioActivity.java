@@ -1,5 +1,6 @@
 package ibeyoutiful.github.ibeyoutiful.activity;
 
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,11 +18,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
 import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.adapter.AdapterProduto;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
+import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
 import ibeyoutiful.github.ibeyoutiful.model.Empresa;
 import ibeyoutiful.github.ibeyoutiful.model.Produto;
+import ibeyoutiful.github.ibeyoutiful.model.Usuario;
 
 public class CardapioActivity extends AppCompatActivity {
 
@@ -33,6 +37,9 @@ public class CardapioActivity extends AppCompatActivity {
     private List<Produto> produtos = new ArrayList<>();
     private DatabaseReference firebaseRef;
     private String idEmpresa;
+    private AlertDialog dialog;
+    private String idUsuarioLogado;
+    private Usuario usuario;
 
 
     @Override
@@ -43,8 +50,7 @@ public class CardapioActivity extends AppCompatActivity {
         //Configuções Iniciais
         inicializarComponentes();
         firebaseRef = ConfiguracaoFirebase.getFirebase();
-
-
+        idUsuarioLogado = UsuarioFirebase.getIdUsuario();
 
         //Recuperar Emprsa
         Bundle bundle = getIntent().getExtras();
@@ -77,8 +83,33 @@ public class CardapioActivity extends AppCompatActivity {
 
     private void recuperarDadosUsuario() {
 
+        dialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setMessage("Carregando Dados")
+                .setCancelable( false )
+                .build();
+        dialog.show();
 
-    }
+        DatabaseReference usuariosRef = firebaseRef
+                .child("usuarios")
+                .child( idUsuarioLogado );
+
+        usuariosRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if( dataSnapshot.getValue() != null ){
+                    usuario = dataSnapshot.getValue(Usuario.class);
+                    //temp
+                    dialog.cancel();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+}
 
     private void recuperarProdutos() {
 
