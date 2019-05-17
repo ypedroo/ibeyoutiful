@@ -50,7 +50,7 @@ public class EmpresaActivity extends AppCompatActivity {
 
         //Configuração Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Beyoutiful - Profissional");
+        toolbar.setTitle("Beyoutiful - Pro");
         setSupportActionBar(toolbar);
 
         //Configuraçao recyclerView

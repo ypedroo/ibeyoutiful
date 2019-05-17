@@ -7,6 +7,13 @@
         android:icon="@drawable/ic_adicionar_24dp"
         android:title="Novo Servico"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menuPedido"
+        android:icon="@drawable/ic_adicionar_24dp"
+        android:title="Pedidos"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/menuConfiguracoes"
         android:title="Configurações"
