@@ -12,13 +12,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.ifood.cursoandroid.ifood.model.ItemPedido;
-import br.com.ifood.cursoandroid.ifood.model.Pedido;
-import br.com.ifood.cursoandroid.ifoodprojeto.R;
-import br.com.ifood.cursoandroid.ifoodprojeto.model.Encomenda;
-import br.com.ifood.cursoandroid.ifoodprojeto.model.Pedido;
-import br.com.ifood.cursoandroid.ifoodprojeto.model.Produto;
-import br.com.ifood.cursoandroid.ifoodprojeto.model.Requisicao;
+import ibeyoutiful.github.ibeyoutiful.R;
+import ibeyoutiful.github.ibeyoutiful.model.ItemPedido;
+import ibeyoutiful.github.ibeyoutiful.model.Pedido;
+
 
 /**
  * Created by jamiltondamasceno
@@ -59,7 +56,7 @@ public class AdapterPedido extends RecyclerView.Adapter<AdapterPedido.MyViewHold
             Double preco = itemPedido.getPreco();
             total += (qtde * preco);
 
-            String nome = itemPedido.getNomeProduto();
+            String nome = itemPedido.getNomePorduto();
             descricaoItens += numeroItem + ") " + nome + " / (" + qtde + " x R$ " + preco + ") \n";
             numeroItem++;
         }
