@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/menuPedido"
-        android:icon="@drawable/ic_adicionar_24dp"
+        android:icon="@drawable/ic_assignment_late_black_24dp"
         android:title="Pedidos"
         app:showAsAction="always" />
 

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,13 +23,14 @@ import ibeyoutiful.github.ibeyoutiful.R;
 import ibeyoutiful.github.ibeyoutiful.adapter.AdapterPedido;
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
 import ibeyoutiful.github.ibeyoutiful.helper.UsuarioFirebase;
+import ibeyoutiful.github.ibeyoutiful.listener.RecyclerItemClickListener;
 import ibeyoutiful.github.ibeyoutiful.model.Pedido;
 
 public class PedidosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerPedidos;
     private AdapterPedido adapterPedido;
-    private List<Pedido> pedidos;
+    private List<Pedido> pedidos = new ArrayList<>();
     private AlertDialog dialog;
     private DatabaseReference firebaseRef;
     private String idEmpresa;
@@ -55,13 +58,37 @@ public class PedidosActivity extends AppCompatActivity {
         recyclerPedidos.setAdapter( adapterPedido );
         
         recuperarPedidos();
+
+        recyclerPedidos.addOnItemTouchListener( new RecyclerItemClickListener(
+                this,
+                recyclerPedidos,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        Pedido pedido = pedidos.get( position );
+                        pedido.setStatus("Finalizado");
+                        pedido.atualizarStatus();
+
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                }
+        ));
     }
 
     private void recuperarPedidos() {
 
         dialog = new SpotsDialog.Builder()
                 .setContext(this)
-                .setMessage("Carregando Dados")
+                .setMessage("Carregando dados")
                 .setCancelable( false )
                 .build();
         dialog.show();
@@ -69,21 +96,24 @@ public class PedidosActivity extends AppCompatActivity {
         DatabaseReference pedidoRef = firebaseRef
                 .child("pedidos")
                 .child(idEmpresa);
+
         Query pedidoPesquisa = pedidoRef.orderByChild("status")
                 .equalTo("confirmado");
+
         pedidoPesquisa.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 pedidos.clear();
-                if(dataSnapshot.getValue() != null){
+                if( dataSnapshot.getValue() != null ){
                     for (DataSnapshot ds: dataSnapshot.getChildren()){
-                        Pedido pedido= ds.getValue(Pedido.class);
+                        Pedido pedido = ds.getValue(Pedido.class);
                         pedidos.add(pedido);
                     }
                     adapterPedido.notifyDataSetChanged();
                     dialog.dismiss();
                 }
+
             }
 
             @Override
@@ -91,7 +121,6 @@ public class PedidosActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 

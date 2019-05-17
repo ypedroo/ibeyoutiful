@@ -2,6 +2,7 @@ package ibeyoutiful.github.ibeyoutiful.model;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.HashMap;
 import java.util.List;
 
 import ibeyoutiful.github.ibeyoutiful.helper.ConfiguracaoFirebase;
@@ -52,6 +53,20 @@ public class Pedido {
                 .child( getIdEmpresa() )
                 .child( getIdPedido() );
         pedidoRef.setValue(this);
+    }
+
+    public void atualizarStatus(){
+
+        HashMap<String, Object> status = new HashMap<>();
+        status.put("status",getStatus());
+
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebase();
+        DatabaseReference pedidoRef = firebaseRef
+                .child("pedidos")
+                .child( getIdEmpresa() )
+                .child( getIdPedido() );
+        pedidoRef.updateChildren(status);
+
     }
 
     public void remover(){

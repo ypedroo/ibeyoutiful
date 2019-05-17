@@ -141,8 +141,15 @@ public class EmpresaActivity extends AppCompatActivity {
             case R.id.menuNovoServico:
                 abrirNovoServico();
                 break;
+            case R.id.menuPedido:
+                abrirPedidos();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void abrirPedidos() {
+        startActivity(new Intent(EmpresaActivity.this, PedidosActivity.class));
     }
 
 
