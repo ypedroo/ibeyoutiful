@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,48 +41,52 @@ public class PedidosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedidos);
 
+        //Configurações iniciais
         inicializarComponentes();
         firebaseRef = ConfiguracaoFirebase.getFirebase();
         idEmpresa = UsuarioFirebase.getIdUsuario();
 
-
         //Configuração Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Agendamentos Solicitados");
+        toolbar.setTitle("Pedidos");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Configuraçao recyclerView
-        recyclerPedidos.setLayoutManager( new LinearLayoutManager(this));
-        recyclerPedidos.setHasFixedSize(true);
-        adapterPedido = new AdapterPedido( pedidos );
-        recyclerPedidos.setAdapter( adapterPedido );
-        
         recuperarPedidos();
 
-        recyclerPedidos.addOnItemTouchListener( new RecyclerItemClickListener(
-                this,
-                recyclerPedidos,
-                new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
+        //Configura recyclerview
+        recyclerPedidos.setLayoutManager(new LinearLayoutManager(this));
+        recyclerPedidos.setHasFixedSize(true);
+        adapterPedido = new AdapterPedido(pedidos);
+        recyclerPedidos.setAdapter( adapterPedido );
 
-                    }
 
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-                        Pedido pedido = pedidos.get( position );
-                        pedido.setStatus("Finalizado");
-                        pedido.atualizarStatus();
+        //Adiciona evento de clique no recyclerview
+        recyclerPedidos.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        this,
+                        recyclerPedidos,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                Pedido pedido = pedidos.get( position );
+                                pedido.setStatus("finalizado");
+                                pedido.atualizarStatus();
+                            }
 
-                    }
-                }
-        ));
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+                        }
+                )
+        );
+
     }
 
     private void recuperarPedidos() {
@@ -96,11 +101,11 @@ public class PedidosActivity extends AppCompatActivity {
         DatabaseReference pedidoRef = firebaseRef
                 .child("pedidos")
                 .child(idEmpresa);
+//
+//        Query pedidoPesquisa = pedidoRef.orderByChild("status")
+//                .equalTo("confirmado");
 
-        Query pedidoPesquisa = pedidoRef.orderByChild("status")
-                .equalTo("confirmado");
-
-        pedidoPesquisa.addValueEventListener(new ValueEventListener() {
+        pedidoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -111,6 +116,9 @@ public class PedidosActivity extends AppCompatActivity {
                         pedidos.add(pedido);
                     }
                     adapterPedido.notifyDataSetChanged();
+                    dialog.dismiss();
+                } else {
+                    exibirMensagem("Não há itens no pedido");
                     dialog.dismiss();
                 }
 
@@ -124,7 +132,12 @@ public class PedidosActivity extends AppCompatActivity {
 
     }
 
-    private void inicializarComponentes() {
+    private void exibirMensagem(String texto){
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+    }
+
+    private void inicializarComponentes(){
         recyclerPedidos = findViewById(R.id.recyclerPedidos);
     }
+
 }
