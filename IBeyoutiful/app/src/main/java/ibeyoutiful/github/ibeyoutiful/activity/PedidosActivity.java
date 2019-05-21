@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -77,6 +78,7 @@ public class PedidosActivity extends AppCompatActivity {
                                 Pedido pedido = pedidos.get( position );
                                 pedido.setStatus("finalizado");
                                 pedido.atualizarStatus();
+                                exibirMensagem("Agendamento aceito!");
                             }
 
                             @Override
@@ -101,11 +103,11 @@ public class PedidosActivity extends AppCompatActivity {
         DatabaseReference pedidoRef = firebaseRef
                 .child("pedidos")
                 .child(idEmpresa);
-//
-//        Query pedidoPesquisa = pedidoRef.orderByChild("status")
-//                .equalTo("confirmado");
 
-        pedidoRef.addValueEventListener(new ValueEventListener() {
+        Query pedidoPesquisa = pedidoRef.orderByChild("status");//.equalTo("confirmado");
+
+
+        pedidoPesquisa.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
