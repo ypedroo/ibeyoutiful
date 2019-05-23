@@ -2,7 +2,7 @@
 ![alt text](https://github.com/ypedroo/ibeyoutiful/blob/master/Assets/Header.PNG)
 
 ## About
-BEYOUTIFUL its an beauty services plataform, wich can be scheduled and fulfilled right in your home. The main purpose is to serve custommers in the most confortable way, especially elderly with locomotion dificulties and small stablishments and independant professionals to provide its services quick and free.
+**BEYOUTIFUL** its an beauty services plataform, wich can be scheduled and fulfilled right in your home. The main purpose is to serve custommers in the most confortable way, especially elderly with locomotion dificulties and small stablishments and independant professionals to provide its services quick and free.
 
 ## Media
 ![alt text](https://github.com/ypedroo/ibeyoutiful/blob/master/Assets/screen1_3.PNG)
