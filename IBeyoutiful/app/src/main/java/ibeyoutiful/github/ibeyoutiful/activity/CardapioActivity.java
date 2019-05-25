@@ -122,6 +122,7 @@ public class CardapioActivity extends AppCompatActivity {
         recuperarDadosUsuario();
     }
 
+
     private void confirmarQuantidade(final int posicao) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

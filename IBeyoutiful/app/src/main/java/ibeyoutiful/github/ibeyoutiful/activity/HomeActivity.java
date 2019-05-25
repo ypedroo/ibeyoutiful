@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         recuperarEmpresas();
 
         //Recuperar Produtos para empresa
-        recuperarEmpresas();	        recuperarEmpresas();
+        //recuperarEmpresas();	        recuperarEmpresas();
 
 
         //Configuração do  search view
