@@ -6,10 +6,12 @@
 
 ## Media
 ![first_row](Assets/screen1_3.PNG)
-![second_row](/Assets/secreen_4_5.PNG)
 
 ## Version
 This version is Android Native app and its supported by Android 7+ API
+
+## Contribuitions
+This project was built for study purpose, feel free to send a PR with improvements. 
 
 ## Considerations
 Android Studio(Docs)
